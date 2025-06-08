@@ -1,6 +1,8 @@
 import struct
 
+
 class BinaryReader:
+
     def __init__(self, data: bytes):
         self.data = data
         self.offset = 0
@@ -20,8 +22,13 @@ class BinaryReader:
         self.offset += 4
         return val
 
+    def read_int32(self):
+        val, = struct.unpack_from('<i', self.data, self.offset)
+        self.offset += 4
+        return val
+
     def read_bytes(self, length):
-        val = self.data[self.offset:self.offset+length]
+        val = self.data[self.offset:self.offset + length]
         self.offset += length
         return val
 
