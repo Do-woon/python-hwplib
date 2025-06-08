@@ -34,3 +34,6 @@ class BinaryReader:
 
     def tell(self):
         return self.offset
+
+    def eof(self) -> bool:
+        return self.offset >= len(self.data)

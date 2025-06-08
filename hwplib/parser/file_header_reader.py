@@ -22,10 +22,8 @@ def parse_file_header(data: bytes) -> FileHeader:
         raise ValueError(f"Invalid HWP file signature: {signature}")
 
     # Check whether the reader is at the end of the header.
-    if reader.tell() != 256:
-        raise ValueError(
-            f"FileHeader size mismatch: expected 256 bytes, got {reader.tell()} bytes"
-        )
+    if not reader.eof():
+        raise ValueError("Extra data found after FileHeader parsing.")
 
     return FileHeader(
         signature=signature,
