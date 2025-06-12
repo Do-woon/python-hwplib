@@ -32,8 +32,8 @@ class BinaryReader:
         self.offset += length
         return val
 
-    def read_string(self, length):
-        raw = self.read_bytes(length)
+    def read_string(self, str_length):
+        raw = self.read_bytes(str_length * 2)  # Read bytes for UTF-16LE.
         return raw.decode('utf-16le', errors='ignore').rstrip('\x00')
 
     def seek(self, offset):
