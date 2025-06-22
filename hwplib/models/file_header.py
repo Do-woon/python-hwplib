@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from enum import IntEnum
+
 from hwplib.models.common.bitfield import BitFieldObject
 
 
@@ -124,3 +126,61 @@ class FileHeaderAdditionalProperties(BitFieldObject):
         }),
         "reserved": (3, 31, None),
     }
+
+
+class EncryptVersion(IntEnum):
+    NONE = 0
+    HWP_25 = 1
+    HWP_30_ENHANCED = 2
+    HWP_30_OLD = 3
+    HWP_70 = 4
+
+    def describe(self):
+        return {
+            EncryptVersion.NONE: "None",
+            EncryptVersion.HWP_25: "HWP <= 2.5",
+            EncryptVersion.HWP_30_ENHANCED: "HWP 3.0 Enhanced",
+            EncryptVersion.HWP_30_OLD: "HWP 3.0 Old",
+            EncryptVersion.HWP_70: "HWP 7.0+",
+        }.get(self, "Unknown")
+
+
+class KoglCountry(IntEnum):
+    UNKNOWN = 0
+    KOR = 6
+    USA = 15
+
+    def describe(self):
+        return {
+            KoglCountry.UNKNOWN: "Unknown",
+            KoglCountry.KOR: "Korea",
+            KoglCountry.USA: "United States",
+        }.get(self, "Unknown")
+
+
+@dataclass
+class FileHeader:
+    signature: str
+    version_raw: int
+    properties: FileHeaderProperties
+    additional_properties: FileHeaderAdditionalProperties
+    encrypt_version: EncryptVersion
+    kogl_country: KoglCountry
+
+    @property
+    def version_str(self) -> str:
+        MM = (self.version_raw >> 24) & 0xFF
+        nn = (self.version_raw >> 16) & 0xFF
+        PP = (self.version_raw >> 8) & 0xFF
+        rr = self.version_raw & 0xFF
+        return f"{MM}.{nn}.{PP}.{rr}"
+
+    def __str__(self):
+        return (
+            f"<HWP FileHeader>\n"
+            f"  Signature       : {self.signature}\n"
+            f"  Version         : {self.version_str} (0x{self.version_raw:08X})\n"
+            f"  Properties      : {self.properties.describe()}\n"
+            f"  Additional Props: {self.additional_properties.describe()}\n"
+            f"  Encryption Ver  : {self.encrypt_version.describe()}\n"
+            f"  KOGL Country    : {self.kogl_country.describe()}")

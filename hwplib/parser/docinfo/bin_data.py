@@ -1,6 +1,6 @@
 from hwplib.models.common.enum import RecordTag
-from hwplib.models.docinfo.bin_data import BinData, BinDataProperty
-from hwplib.models.docinfo.enum import BinDataType
+from hwplib.models.docinfo.bin_data import (BinData, BinDataProperty,
+                                            BinDataType)
 from hwplib.parser.record_registry import RecordParserRegistry
 from hwplib.utils.binary import BinaryReader
 

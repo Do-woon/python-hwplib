@@ -1,8 +1,19 @@
 from dataclasses import dataclass, field
+from enum import Enum
 from typing import Dict, Union
 
 from hwplib.models.common.enum import RecordTag
-from hwplib.models.docinfo.enum import FaceNameType
+
+
+class FaceNameType(Enum):
+    HANGUL = "Hangul"
+    ENGLISH = "English"
+    HANJA = "Hanja"
+    JAPANESE = "Japanese"
+    ETC = "Etc"
+    SYMBOL = "Symbol"
+    USER = "User"
+
 
 # Order of tags must match the order in the HWP specification, Table 16.
 ID_MAPPING_INDEX_TO_TAG = [

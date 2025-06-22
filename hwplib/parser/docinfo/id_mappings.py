@@ -1,7 +1,6 @@
 from hwplib.models.common.enum import RecordTag
-from hwplib.models.docinfo.enum import FaceNameType
 from hwplib.models.docinfo.id_mappings import (ID_MAPPING_INDEX_TO_TAG,
-                                               IDMappings)
+                                               FaceNameType, IDMappings)
 from hwplib.parser.record_registry import RecordParserRegistry
 from hwplib.utils.binary import BinaryReader
 

@@ -1,7 +1,6 @@
-from hwplib.models.file_header import FileHeader
-from hwplib.models.file_header.bitfield import (FileHeaderAdditionalProperties,
-                                                FileHeaderProperties)
-from hwplib.models.file_header.enum import EncryptVersion, KoglCountry
+from hwplib.models.file_header import (EncryptVersion, FileHeader,
+                                       FileHeaderAdditionalProperties,
+                                       FileHeaderProperties, KoglCountry)
 from hwplib.utils.binary import BinaryReader
 
 
