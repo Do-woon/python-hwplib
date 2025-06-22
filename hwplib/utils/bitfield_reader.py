@@ -1,4 +1,4 @@
-from enum import IntEnum
+from enum import Enum
 from hwplib.models.common.bitfield import BitFieldObject
 
 
@@ -21,7 +21,7 @@ class BitFieldReader:
                 # Simple value mapping (e.g., 0: "off", 1: "on")
                 result[name] = mapping.get(raw_value, f"[Unknown:{raw_value}]")
 
-            elif isinstance(mapping, type) and issubclass(mapping, IntEnum):
+            elif isinstance(mapping, type) and issubclass(mapping, Enum):
                 # Convert Enum value to its name.
                 try:
                     result[name] = mapping(raw_value)
