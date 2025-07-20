@@ -8,33 +8,38 @@ class BinaryReader:
         self.offset = 0
 
     def read_uint8(self):
-        val = self.data[self.offset]
+        (val,) = struct.unpack_from("<B", self.data, self.offset)
+        self.offset += 1
+        return val
+
+    def read_int8(self):
+        (val,) = struct.unpack_from("<b", self.data, self.offset)
         self.offset += 1
         return val
 
     def read_uint16(self):
-        val, = struct.unpack_from('<H', self.data, self.offset)
+        (val,) = struct.unpack_from("<H", self.data, self.offset)
         self.offset += 2
         return val
 
     def read_uint32(self):
-        val, = struct.unpack_from('<I', self.data, self.offset)
+        (val,) = struct.unpack_from("<I", self.data, self.offset)
         self.offset += 4
         return val
 
     def read_int32(self):
-        val, = struct.unpack_from('<i', self.data, self.offset)
+        (val,) = struct.unpack_from("<i", self.data, self.offset)
         self.offset += 4
         return val
 
     def read_bytes(self, length):
-        val = self.data[self.offset:self.offset + length]
+        val = self.data[self.offset : self.offset + length]
         self.offset += length
         return val
 
     def read_string(self, str_length):
         raw = self.read_bytes(str_length * 2)  # Read bytes for UTF-16LE.
-        return raw.decode('utf-16le', errors='ignore').rstrip('\x00')
+        return raw.decode("utf-16le", errors="ignore").rstrip("\x00")
 
     def seek(self, offset):
         self.offset = offset
