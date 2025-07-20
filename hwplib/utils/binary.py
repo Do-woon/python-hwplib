@@ -21,6 +21,11 @@ class BinaryReader:
         (val,) = struct.unpack_from("<H", self.data, self.offset)
         self.offset += 2
         return val
+    
+    def read_int16(self):
+        (val,) = struct.unpack_from("<h", self.data, self.offset)
+        self.offset += 2
+        return val
 
     def read_uint32(self):
         (val,) = struct.unpack_from("<I", self.data, self.offset)
@@ -40,6 +45,9 @@ class BinaryReader:
     def read_string(self, str_length):
         raw = self.read_bytes(str_length * 2)  # Read bytes for UTF-16LE.
         return raw.decode("utf-16le", errors="ignore").rstrip("\x00")
+    
+    def skip(self, length):
+        self.offset += length
 
     def seek(self, offset):
         self.offset = offset

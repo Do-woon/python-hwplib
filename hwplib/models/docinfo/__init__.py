@@ -3,6 +3,7 @@ from .border_fill import BorderFill
 from .char_shape import CharShape, CharShapeProperty
 from .document_properties import CaretPosition, DocumentProperties, StartNumber
 from .id_mappings import IDMappings
+from .tab_def import TabDef
 
 __all__ = [
     "BinData",
@@ -14,4 +15,5 @@ __all__ = [
     "DocumentProperties",
     "StartNumber",
     "IDMappings",
+    "TabDef",
 ]
