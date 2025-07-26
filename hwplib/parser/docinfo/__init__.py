@@ -6,6 +6,7 @@ from .document_properties import parse_document_properties
 from .face_name import parse_face_name
 from .id_mappings import parse_id_mappings
 from .numbering import parse_numbering
+from .para_shape import parse_para_shape
 from .tab_def import parse_tab_def
 
 __all__ = [
@@ -17,5 +18,6 @@ __all__ = [
     "parse_face_name",
     "parse_id_mappings",
     "parse_numbering",
+    "parse_para_shape",
     "parse_tab_def",
 ]
