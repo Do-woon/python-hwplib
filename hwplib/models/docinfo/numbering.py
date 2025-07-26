@@ -5,6 +5,27 @@ from typing import List, Optional
 from hwplib.models.common.bitfield import BitFieldObject
 
 
+# Table 41
+class ParagraphNumberFormat(IntEnum):
+    NUMBER = 0  # 1, 2, 3 (무한)
+    CIRCLED_NUMBER = 1  # ①, ②, ③ (1~20 반복)
+    ROMAN_UPPER = 2  # I, II, III (무한)
+    ROMAN_LOWER = 3  # i, ii, iii (무한)
+    ALPHABET_UPPER = 4  # A, B, C (A~Z 반복)
+    ALPHABET_LOWER = 5  # a, b, c (a~z 반복)
+    CIRCLED_ALPHABET_UPPER = 6  # Ⓐ, Ⓑ, Ⓒ (A~Z 반복)
+    CIRCLED_ALPHABET_LOWER = 7  # ⓐ, ⓑ, ⓒ (a~z 반복)
+    HANGUL = 8  # 가, 나, 다 (가~하… 반복)
+    CIRCLED_HANGUL = 9  # ㉮, ㉯, ㉰ … (가~하 반복)
+    HANGUL_JAMO = 10  # ㄱ, ㄴ, ㄷ (ㄱ~ㅎ 반복)
+    CIRCLED_HANGUL_JAMO = 11  # ㉠, ㉡, ㉢ … (ㄱ~ㅎ 반복)
+    HANGUL_NUMBER = 12  # 일, 이, 삼 (일~구십구 반복)
+    HANJA_NUMBER = 13  # 一, 二, 三 (一~九十九 반복)
+    CIRCLED_HANJA_NUMBER = 14  # ㊀, ㊁ … (一~十 반복)
+    SIBGAN_HANGUL = 15  # 갑, 을, 병, 정 … (10간)
+    SIBGAN_HANJA = 16  # 甲, 乙, 丙, 丁 … (10간 한자)
+
+
 class ParagraphAlignment(IntEnum):
     LEFT = 0  # 왼쪽 정렬
     CENTER = 1  # 가운데 정렬
@@ -23,12 +44,14 @@ class ParagraphHeadProperty(BitFieldObject):
     use_inst_width: bool  # 번호 너비를 실제 인스턴스 문자열의 너비에 따를지 여부
     auto_indent: bool  # 자동 내어쓰기 여부
     distance_type: ParagraphDistanceType  # 본문과의 거리 해석 방식
+    number_format: ParagraphNumberFormat  # 번호 형식
 
     _spec = {
         "align_type": (0, 1, ParagraphAlignment),
         "use_inst_width": (2, 2, {0: False, 1: True}),
         "auto_indent": (3, 3, {0: False, 1: True}),
         "distance_type": (4, 4, ParagraphDistanceType),
+        "number_format": (5, 9, ParagraphNumberFormat),
     }
 
 
